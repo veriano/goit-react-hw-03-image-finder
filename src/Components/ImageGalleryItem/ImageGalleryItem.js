@@ -1,4 +1,5 @@
 import React from 'react';
+import * as basicLightbox from 'basiclightbox';
 import './ImageGalleryItem.css'
 
 export default function ImageGalleryItem() {
