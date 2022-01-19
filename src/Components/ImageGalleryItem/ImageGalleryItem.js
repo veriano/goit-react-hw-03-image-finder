@@ -1,13 +1,14 @@
 import React from 'react';
-import * as basicLightbox from 'basiclightbox';
-import './ImageGalleryItem.css'
+import './ImageGalleryItem.css';
 
-export default function ImageGalleryItem() {
+export default function ImageGalleryItem({ image, largeImage }) {
 
     return (
-    <li className="ImageGalleryItem">
-        <img src="" alt="" className="ImageGalleryItem-image" />
-    </li>
+        <a href={ largeImage }>
+            <li className="ImageGalleryItem">
+                <img src={ image } alt="image" className="ImageGalleryItem-image" />
+            </li>
+        </a>
     )
 
 }
