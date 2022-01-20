@@ -1,16 +1,16 @@
 import './Searchbar.css';
 import { Component } from "react/cjs/react.production.min";
-const axios = require('axios');
 
 
 export default class Searchbar extends Component {
     state = {
         inputValue: '',
-        page: 1
+        page: 0
     }
 
     handleChange = e => {
         const { value } = e.currentTarget;
+        console.log(value);
 
         this.setState({ inputValue: value })
     }
@@ -18,51 +18,20 @@ export default class Searchbar extends Component {
     handleSubmit = e => {
         e.preventDefault();
 
-        this.props.onSubmitHandler(this.state.inputValue);
+        this.resetPage();
 
-        this.getPixabayResponse(e);
+        this.props.onSubmitHandler(this.state);
 
         this.reset();
     }
 
-    incrementPage() {
-        this.setState(prevState => {
-            return {
-                page: prevState + 1,
-            }
-        })
+    reset() {
+          this.setState({ inputValue: '' })
     }
 
     resetPage() {
         this.setState({ page: 1 })
     }
-
-    reset = () => {
-          this.setState({ inputValue: '' })
-    }
-    
-    getPixabayResponse = name => {
-        const page = this.state.page;
-
-         const searchParams = new URLSearchParams({
-            image_type: 'photo',
-            orientation: "horizontal",
-            safesearch: true,
-            per_page: 12,
-         });
-        
-        const BASE_URL = 'https://pixabay.com/api/';
-        const API_KEY = '24463326-9b2d5a427846ea9fa30299421';
-
-        const hits = axios(`${BASE_URL}/?key=${API_KEY}&q=${name}&page=${page}&${searchParams}`)
-            .then(data => {
-                console.log(data);
-                 this.incrementPage();
-                return data.data.hits;
-            });
-        return hits;
-    }
-
    
 
     render() {
