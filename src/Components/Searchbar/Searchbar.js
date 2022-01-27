@@ -5,7 +5,6 @@ import { Component } from "react/cjs/react.production.min";
 export default class Searchbar extends Component {
     state = {
         inputValue: '',
-        page: 0
     }
 
     handleChange = e => {

@@ -3,15 +3,15 @@ import './ImageGallery.css';
 import ImageGalleryItem from '../ImageGalleryItem';
 
 
-export default function ImageGallery({ hits }) {
+export default function ImageGallery({ values }) {
     return (
         <ul className="ImageGallery">
-            {hits.map(hit => {
-                <ImageGalleryItem key={ hit.id }
-                    image={ hit.webformatURL }
-                    largeImage={ hit.largeImageURL }   
+            { values.map(({ id, webformatURL, largeImageURL }) => (
+                <ImageGalleryItem key={ id }
+                    image={ webformatURL }
+                    largeImage={ largeImageURL }   
                 />
-            })}
+            ))}
         </ul>
     )
 }
