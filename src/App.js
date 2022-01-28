@@ -1,4 +1,4 @@
-import { Component } from "react";
+import { Component } from 'react/cjs/react.production.min';
 // import * as basicLightbox from 'basiclightbox';
 import './App.css';
 import Searchbar from "./Components/Searchbar";
@@ -13,14 +13,15 @@ class App extends Component {
     state = {
         hits: [],
         name: '',
-        page: null
+        page: 1
     }
 
     getValue = data => {
         console.log(data);
         this.setState({ page: data.page, name: data.inputValue });
-        // const name = data.inputValue;
-        this.pixabayApi();
+        const name = data.inputValue;
+        const { page } = this.state;
+        this.pixabayApi(name, page);
     }
 
     incrementPage() {
@@ -31,9 +32,11 @@ class App extends Component {
         })
     }
 
-    async pixabayApi() {        
-        // const { page } = this.state;
-        // const { name } = this.state;
+    onButtonClick() {
+        this.pixabayApi();
+    }
+
+    async pixabayApi(name, page) {        
 
          const searchParams = new URLSearchParams({
             image_type: 'photo',
@@ -47,7 +50,9 @@ class App extends Component {
         try {
             const response = await axios.get(`${BASE_URL}/?key=${API_KEY}&q=${name}&page=${page}&${searchParams}`);
             console.log(response.data);
-            this.setState({ hits: response.data.hits, page: this.incrementPage() });
+            this.setState({ hits: response.data.hits , page: page + 1});
+           
+            console.log(this.state.page);
         } catch (error) {
             this.setState({ error });
         }
@@ -60,7 +65,7 @@ class App extends Component {
             <div>
                 <Searchbar onSubmitHandler={ this.getValue } /> 
                 <ImageGallery articles={ hits } handleClick={ this.handleImadeGallery }/>
-                <Button />
+                <Button onClick={ this.onButtonClick }/>
             </div>
         )
     }
