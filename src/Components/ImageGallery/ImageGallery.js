@@ -3,13 +3,12 @@ import './ImageGallery.css';
 import ImageGalleryItem from '../ImageGalleryItem';
 
 
-export default function ImageGallery({ values }) {
+export default function ImageGallery({ articles }) {
     return (
         <ul className="ImageGallery">
-            { values.map(({ id, webformatURL, largeImageURL }) => (
+            { articles.map(({ id, webformatURL }) => (
                 <ImageGalleryItem key={ id }
-                    image={ webformatURL }
-                    largeImage={ largeImageURL }   
+                    image={ webformatURL }   
                 />
             ))}
         </ul>

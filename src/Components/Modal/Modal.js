@@ -1,12 +1,16 @@
 import React from 'react';
-import './Modal.css';
 
-export default function Modal() {
+export default function Modal({ articles }) {
     return (
+        const instance = basicLightbox.create(`
         <div className="Overlay">
             <div className="Modal">
-                <img src="" alt="" />
+                {articles.map(({ largeImageURL }) => (
+                    <img src={largeImageURL} alt="response from API" />
+                ))}
             </div>
         </div>
+        `)
+        instance.show();
     )
 }

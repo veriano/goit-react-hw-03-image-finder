@@ -5,6 +5,7 @@ import { Component } from "react/cjs/react.production.min";
 export default class Searchbar extends Component {
     state = {
         inputValue: '',
+        page: 1
     }
 
     handleChange = e => {
@@ -17,7 +18,7 @@ export default class Searchbar extends Component {
     handleSubmit = e => {
         e.preventDefault();
 
-        this.resetPage();
+        // this.resetPage();
 
         this.props.onSubmitHandler(this.state);
 
