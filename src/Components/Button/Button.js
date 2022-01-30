@@ -1,8 +1,8 @@
 import React from 'react';
 import './Button.css';
 
-export default function Button({ onClick }) {
+export default function Button({ onButtonClick }) {
     return (
-        <button className='Button' type='button' onClick={() => onClick}>Load more</button>
+        <button className='Button' type='button' onClick={ onButtonClick }>Load more</button>
     )
 }

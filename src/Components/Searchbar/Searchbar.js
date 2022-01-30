@@ -18,8 +18,6 @@ export default class Searchbar extends Component {
     handleSubmit = e => {
         e.preventDefault();
 
-        this.resetPage();
-
         this.props.onSubmitHandler(this.state);
 
         this.reset();
