@@ -4,6 +4,7 @@ import './App.css';
 import Searchbar from "./Components/Searchbar";
 import Button from "./Components/Button";
 import ImageGallery from "./Components/ImageGallery";
+import ImageGalleryItem from './Components/ImageGalleryItem';
 import Modal from "./Components/Modal";
 import Loader from "./Components/Loader"; 
 const axios = require('axios');
@@ -78,7 +79,9 @@ class App extends Component {
             <div>
                 <Searchbar onSubmitHandler={ this.getValue } /> 
                 { loading && <Loader />}
-                <ImageGallery articles={ hits } onImageClick={ this.onImageClick } />
+                <ImageGallery articles={ hits } >
+                    <ImageGalleryItem onImage={ this.onImageClick }/>
+                </ImageGallery>
                 {showModal && <Modal onClose={ this.toggleModal } >
                 { hits.map(({ largeImageURL }) => ( 
                     <img src={ largeImageURL } alt="large" className='image' />

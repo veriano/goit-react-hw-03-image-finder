@@ -27,7 +27,7 @@ export default class Modal extends Component {
     render() {
         return (
         <div className="Overlay" onClick={ this.handleBackdpropClick }>
-            <div className="Modal" width='100' height='50' >
+            <div className="Modal" >
                 { this.props.children }
             </div>
         </div>
