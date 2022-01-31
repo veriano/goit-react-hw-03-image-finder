@@ -4,7 +4,7 @@ import { Component } from "react/cjs/react.production.min";
 
 export default class Searchbar extends Component {
     state = {
-        inputValue: '',
+        name: '',
         page: 1
     }
 
@@ -12,11 +12,16 @@ export default class Searchbar extends Component {
         const { value } = e.currentTarget;
         console.log(value);
 
-        this.setState({ inputValue: value })
+        this.setState({ name: value })
     }
 
     handleSubmit = e => {
         e.preventDefault();
+
+        if(this.state.name.trim() === '') {
+            alert('Пожалуйста введите поисковое слово.');
+            return;
+        }
 
         this.props.onSubmitHandler(this.state);
 
@@ -24,13 +29,8 @@ export default class Searchbar extends Component {
     }
 
     reset() {
-          this.setState({ inputValue: '' })
+          this.setState({ name: '' })
     }
-
-    resetPage() {
-        this.setState({ page: 1 })
-    }
-   
 
     render() {
 

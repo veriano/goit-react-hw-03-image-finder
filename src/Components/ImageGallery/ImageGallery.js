@@ -7,10 +7,9 @@ export default function ImageGallery({ articles, onImageClick }) {
     return (
         <ul className="ImageGallery">
             { articles.map(({ id, webformatURL }) => (
-                <ImageGalleryItem 
-                key={ id }
-                image={ webformatURL } 
-                handleClick={ onImageClick }
+                <ImageGalleryItem key={ id }
+                                  image={ webformatURL } 
+                                  handleClick={ onImageClick }
                 />
             ))}
         </ul>

@@ -5,7 +5,7 @@ import Searchbar from "./Components/Searchbar";
 import Button from "./Components/Button";
 import ImageGallery from "./Components/ImageGallery";
 import Modal from "./Components/Modal";
-
+import Loader from "./Components/Loader"; 
 const axios = require('axios');
 
 
@@ -14,7 +14,8 @@ class App extends Component {
         hits: [],
         name: '',
         page: 1,
-        showModal: false
+        showModal: false,
+        loading: false
     }
 
     toggleModal = () => {
@@ -25,19 +26,10 @@ class App extends Component {
 
     getValue = data => {
         console.log(data);
-        this.setState({ page: data.page, name: data.inputValue });
-        const name = data.inputValue;
-        const  page = this.state.page;
+        this.setState({ name: data.name, page: data.page });
+        const { name, page } = data;
         const response = this.pixabayApi(name, page);
         return response;
-    }
-
-    incrementPage() {
-        this.setState(prevState => {
-            return {
-                page: prevState + 1,
-            }
-        })
     }
 
     onImageClick = e => {
@@ -48,6 +40,7 @@ class App extends Component {
     }
 
     async pixabayApi(name, page) {        
+        this.setState({ loading: true });
 
          const searchParams = new URLSearchParams({
             image_type: 'photo',
@@ -58,36 +51,40 @@ class App extends Component {
         
         const BASE_URL = 'https://pixabay.com/api/';
         const API_KEY = '24463326-9b2d5a427846ea9fa30299421';
-        console.log(this.state.page);
+
         try {
             const response = await axios.get(`${BASE_URL}/?key=${API_KEY}&q=${name}&page=${page}&${searchParams}`);
             console.log(response);
-            this.setState(prevState => {
+            console.log(this.state.page);
+            this.setState(({ loading, hits, page }) => {
                 return {
-                    hits: [ ...response.data.hits],
+                    loading: !loading,
+                    hits: [hits, ...response.data.hits],
                     page: page + 1
                 }
-            });
+                });
             console.log(this.state.page);
+            return response;
         } catch (error) {
             this.setState({ error });
         }
     }
 
     render() {
-        const { hits, showModal, name, page } = this.state;
+        const { hits, showModal, name, page, loading } = this.state;
        
 
         return (
             <div>
                 <Searchbar onSubmitHandler={ this.getValue } /> 
+                { loading && <Loader />}
                 <ImageGallery articles={ hits } onImageClick={ this.onImageClick } />
                 {showModal && <Modal onClose={ this.toggleModal } >
                 { hits.map(({ largeImageURL }) => ( 
                     <img src={ largeImageURL } alt="large" className='image' />
                 ))}
                 </Modal> }
-                <Button onButtonClick={() => this.pixabayApi(name, page)}/>
+                { hits.length > 0 && <Button onButtonClick={() => this.pixabayApi(name, page)} />}
             </div>
         )
     }
