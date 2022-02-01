@@ -1,5 +1,4 @@
-import React from 'react';
-import { Component } from 'react/cjs/react.production.min';
+import React, { Component } from 'react';
 import './Modal.css';
 
 export default class Modal extends Component {

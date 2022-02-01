@@ -1,5 +1,7 @@
-import './Searchbar.css';
 import { Component } from "react/cjs/react.production.min";
+import { toast } from 'react-toastify';
+import './Searchbar.css';
+
 
 
 export default class Searchbar extends Component {
@@ -19,7 +21,7 @@ export default class Searchbar extends Component {
         e.preventDefault();
 
         if(this.state.name.trim() === '') {
-            alert('Пожалуйста введите поисковое слово.');
+            toast.error('Пожалуйста введите поисковое слово.');
             return;
         }
 
@@ -51,6 +53,7 @@ export default class Searchbar extends Component {
                     />
                 </form>
             </header>
+
         )
     }
 }

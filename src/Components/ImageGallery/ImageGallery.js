@@ -1,16 +1,13 @@
-import React from 'react';
+import { Component } from 'react/cjs/react.production.min';
 import './ImageGallery.css';
-import ImageGalleryItem from '../ImageGalleryItem';
 
 
-export default function ImageGallery({ articles }) {
+export default class ImageGallery extends Component {
+    render() {
     return (
         <ul className="ImageGallery">
-            { articles.map(({ id, webformatURL }) => (
-                <ImageGalleryItem key={ id }
-                                  image={ webformatURL } 
-                />
-            ))}
+            {this.props.children}
         </ul>
     )
+    }
 }
