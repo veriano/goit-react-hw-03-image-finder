@@ -1,4 +1,4 @@
-import { Component } from "react/cjs/react.production.min";
+import React, { Component } from "react";
 import { toast } from 'react-toastify';
 import './Searchbar.css';
 

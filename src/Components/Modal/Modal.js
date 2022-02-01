@@ -27,7 +27,9 @@ export default class Modal extends Component {
         return (
         <div className="Overlay" onClick={ this.handleBackdpropClick }>
             <div className="Modal" >
-                { this.props.children }
+            {this.props.articles.map(({ id, largeImageURL }) => 
+            <img key={ id } className='image' src={ largeImageURL } alt='largeImage' />
+            )}
             </div>
         </div>
         )

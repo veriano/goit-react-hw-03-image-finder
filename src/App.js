@@ -92,9 +92,7 @@ class App extends Component {
                     <ImageGalleryItem articles={ hits } onImage={ this.onImageClick }/>
                 </ImageGallery>}
 
-                {showModal && <Modal onClose={ this.toggleModal } >
-                    <ImageGalleryItem />
-                </Modal> }
+                {showModal && <Modal articles={ hits } onClose={ this.toggleModal } />}
 
                 { hits.length > 0 && <Button onButtonClick={() => this.pixabayApi(name, page)} />}
             </div>
