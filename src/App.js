@@ -29,17 +29,12 @@ class App extends Component {
     getValue = data => {
         console.log(data);
         this.setState({ name: data.name, page: data.page });
-        const { name, page } = data;
+        const { name } = data;
+        const { page } = this.state;
         const response = this.pixabayApi(name, page);
         return response;
     }
 
-    onImageClick = e => {
-        if(!e.target.nodeName === 'IMG') {
-            return;
-        }
-        this.toggleModal();
-    }
 
     async pixabayApi(name, page) {        
         this.setState({ loading: true });
@@ -88,11 +83,11 @@ class App extends Component {
 
                 { loading && <Loader />}
 
-                { hits && <ImageGallery>
-                    <ImageGalleryItem articles={ hits } onImage={ this.onImageClick }/>
+                {hits && <ImageGallery>
+                    <ImageGalleryItem articles={ hits } onImage={ this.toggleModal }/>
                 </ImageGallery>}
 
-                {showModal && <Modal articles={ hits } onClose={ this.toggleModal } />}
+                {showModal && <Modal onClose={this.toggleModal} />}
 
                 { hits.length > 0 && <Button onButtonClick={() => this.pixabayApi(name, page)} />}
             </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './ImageGalleryItem.css';
 
 export default function ImageGalleryItem({ articles, onImage }) {
@@ -7,10 +8,15 @@ export default function ImageGalleryItem({ articles, onImage }) {
         <>
             {articles.map(({ id, webformatURL, largeImageURL }) => 
                     <li className="ImageGalleryItem" key={ id }>
-                        <img src={ webformatURL } data-sourse={ largeImageURL } alt="response from API" className="ImageGalleryItem-image" onClick={ onImage }/>
+                    <img src={webformatURL} alt="response from API" className="ImageGalleryItem-image" onClick={() => onImage(largeImageURL)} />
                     </li>
             )}
         </>
     )
 
+}
+
+ImageGalleryItem.propTypes = {
+    id: PropTypes.string,
+    webformatURL: PropTypes.string,
 }
