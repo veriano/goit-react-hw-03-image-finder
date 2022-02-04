@@ -18,6 +18,14 @@ class App extends Component {
         page: 1,
         showModal: false,
         loading: false,
+        modalImage: ''
+    }
+
+    openModal = largeImageURL => {
+        this.setState({
+          showModal: true,
+          modalImage: largeImageURL,
+        });
     }
 
     toggleModal = () => {
@@ -74,7 +82,7 @@ class App extends Component {
     
 
     render() {
-        const { hits, showModal, name, page, loading } = this.state;
+        const { hits, showModal, name, page, loading, modalImage } = this.state;
        
 
         return (
@@ -85,13 +93,18 @@ class App extends Component {
 
                 { loading && <Loader />}
 
-                {hits && <ImageGallery>
-                    <ImageGalleryItem articles={ hits } onImgClick={ this.toggleModal }/>
-                </ImageGallery>}
+                {hits && (
+                <ImageGallery>
+                    <ImageGalleryItem articles={ hits } onImgClick={ this.openModal }/>
+                </ImageGallery>)}
 
-                {showModal && <Modal onClose={ this.toggleModal } />}
+                {showModal && (
+                <Modal onClose={ this.toggleModal }>
+                <img src={modalImage} alt="largeImage" className='image' />
+                </Modal> )}
 
-                { hits.length > 0 && <Button onButtonClick={() => this.pixabayApi(name, page)} />}
+                { hits.length > 0 && (
+                <Button onButtonClick={() => this.pixabayApi(name, page)} />)}
             </div>
         )
     }
