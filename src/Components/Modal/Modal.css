@@ -12,12 +12,13 @@
 }
 
 .Modal {
-  max-width: calc(100vw - 250px);
-  max-height: calc(100vh - 165px);
+  width: calc(100vw - 360px);
+  height: calc(100vh - 280px);
+  /* background-color: blueviolet; */
 }
 
 .image {
   display: block;
   width: 100%;
   height: auto;
-}
+} 

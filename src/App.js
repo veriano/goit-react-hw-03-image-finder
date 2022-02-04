@@ -57,10 +57,13 @@ class App extends Component {
             }
             console.log(response);
             console.log(this.state.page);
-            this.setState({
-                    loading: false,
-                    hits: response.data.hits,
+            
+            this.setState(({ loading, hits, page }) => {
+                return {
+                    loading: !loading,
+                    hits: [...response.data.hits],
                     page: page + 1,
+                }
                 });
             console.log(this.state.page);
             return response.data.hits;
