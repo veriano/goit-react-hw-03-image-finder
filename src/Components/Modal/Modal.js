@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ImageGalleryItem from '../ImageGalleryItem';
 import './Modal.css';
 
 export default class Modal extends Component {
@@ -25,10 +24,12 @@ export default class Modal extends Component {
     }
 
     render() {
+        const { children } = this.props;
+
         return (
         <div className="Overlay" onClick={ this.handleBackdpropClick }>
-                <div className="Modal" >
-                    <img src={largeImageURL} alt='largeImage' className='image' />
+            <div className="Modal" >
+                { children }
             </div>
         </div>
         )

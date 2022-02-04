@@ -28,9 +28,8 @@ class App extends Component {
 
     getValue = data => {
         console.log(data);
-        this.setState({ name: data.name, page: data.page });
-        const { name } = data;
-        const { page } = this.state;
+        this.setState({ name: data.name, page: data.page, });
+        const { name, page } = data;
         const response = this.pixabayApi(name, page);
         return response;
     }
@@ -84,10 +83,10 @@ class App extends Component {
                 { loading && <Loader />}
 
                 {hits && <ImageGallery>
-                    <ImageGalleryItem articles={ hits } onImage={ this.toggleModal }/>
+                    <ImageGalleryItem articles={ hits } onImgClick={ this.toggleModal }/>
                 </ImageGallery>}
 
-                {showModal && <Modal onClose={this.toggleModal} />}
+                {showModal && <Modal onClose={ this.toggleModal } />}
 
                 { hits.length > 0 && <Button onButtonClick={() => this.pixabayApi(name, page)} />}
             </div>

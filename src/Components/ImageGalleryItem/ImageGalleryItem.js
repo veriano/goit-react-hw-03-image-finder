@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './ImageGalleryItem.css';
 
-export default function ImageGalleryItem({ articles, onImage }) {
+export default function ImageGalleryItem({ articles, onImgClick }) {
 
     return (
         <>
-            {articles.map(({ id, webformatURL, largeImageURL }) => 
+            {articles.map(({ id, webformatURL, largeImageURL, tags }) => 
                     <li className="ImageGalleryItem" key={ id }>
-                    <img src={webformatURL} alt="response from API" className="ImageGalleryItem-image" onClick={() => onImage(largeImageURL)} />
+                    <img src={webformatURL} alt={ tags } className="ImageGalleryItem-image" onClick={() => onImgClick(largeImageURL)} />
                     </li>
             )}
         </>

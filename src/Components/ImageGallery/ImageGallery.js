@@ -5,9 +5,10 @@ import './ImageGallery.css';
 export default class ImageGallery extends Component {
     
     render() {
+        const { children } = this.props;
     return (
         <ul className="ImageGallery">
-            {this.props.children}
+            { children }
         </ul>
     )
     }

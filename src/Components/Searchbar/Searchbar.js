@@ -7,7 +7,7 @@ import './Searchbar.css';
 export default class Searchbar extends Component {
     state = {
         name: '',
-        page: 1
+        page: 1,
     }
 
     handleChange = e => {
