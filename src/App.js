@@ -36,12 +36,11 @@ class App extends Component {
 
     getValue = data => {
         console.log(data);
-        this.setState({ name: data.name, page: data.page, });
+        this.setState({ name: data.name, page: data.page, hits: []});
         const { name, page } = data;
         const response = this.pixabayApi(name, page);
         return response;
     }
-
 
     async pixabayApi(name, page) {        
         this.setState({ loading: true });
@@ -69,7 +68,7 @@ class App extends Component {
             this.setState(({ loading, hits, page }) => {
                 return {
                     loading: !loading,
-                    hits: [...response.data.hits],
+                    hits: [...hits,...response.data.hits],
                     page: page + 1,
                 }
                 });

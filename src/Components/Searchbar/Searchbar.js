@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { toast } from 'react-toastify';
 import './Searchbar.css';
 
-
-
 export default class Searchbar extends Component {
     state = {
         name: '',

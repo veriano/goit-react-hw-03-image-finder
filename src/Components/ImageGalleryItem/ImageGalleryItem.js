@@ -8,7 +8,9 @@ export default function ImageGalleryItem({ articles, onImgClick }) {
         <>
             {articles.map(({ id, webformatURL, largeImageURL, tags }) => 
                     <li className="ImageGalleryItem" key={ id }>
-                    <img src={webformatURL} alt={ tags } className="ImageGalleryItem-image" onClick={() => onImgClick(largeImageURL)} />
+                    <img src={webformatURL} 
+                    alt={ tags } className="ImageGalleryItem-image" 
+                    onClick={() => onImgClick(largeImageURL)} />
                     </li>
             )}
         </>
