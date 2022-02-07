@@ -103,9 +103,10 @@ class App extends Component {
                 </Modal> )}
 
                 { hits.length > 0 && (
-                <Button onButtonClick={() => this.pixabayApi(name, page)} />)}
+                <Button onButtonClick={ () => this.pixabayApi(name, page) } />)}
             </div>
         )
     }
 }
+
 export default App;

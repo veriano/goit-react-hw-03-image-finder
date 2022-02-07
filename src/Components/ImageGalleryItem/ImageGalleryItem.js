@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './ImageGalleryItem.css';
 
-export default function ImageGalleryItem({ articles, onImgClick }) {
+function ImageGalleryItem({ articles, onImgClick }) {
 
     return (
         <>
@@ -21,4 +21,9 @@ export default function ImageGalleryItem({ articles, onImgClick }) {
 ImageGalleryItem.propTypes = {
     id: PropTypes.string,
     webformatURL: PropTypes.string,
+    largeImageURL: PropTypes.string,
+    tags: PropTypes.string,
+    onImgClick: PropTypes.func,
 }
+
+export default ImageGalleryItem;

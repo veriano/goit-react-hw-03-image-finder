@@ -1,8 +1,8 @@
 import { Component } from 'react/cjs/react.production.min';
+import PropTypes from 'prop-types';
 import './ImageGallery.css';
 
-
-export default class ImageGallery extends Component {
+class ImageGallery extends Component {
     
     render() {
         const { children } = this.props;
@@ -13,3 +13,8 @@ export default class ImageGallery extends Component {
     )
     }
 }
+ImageGallery.propTypes = {
+    children: PropTypes.node.isRequired,
+}
+
+export default ImageGallery;

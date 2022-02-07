@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import './Modal.css';
 
-export default class Modal extends Component {
+class Modal extends Component {
 
     componentDidMount() {
         window.addEventListener('keydown', this.handleKeyDown );
@@ -35,3 +36,9 @@ export default class Modal extends Component {
         )
     }
 }
+
+Modal.propTypes = {
+    children: PropTypes.object.isRequired,
+}
+
+export default Modal;
