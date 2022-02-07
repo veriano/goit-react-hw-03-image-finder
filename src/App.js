@@ -35,7 +35,6 @@ class App extends Component {
     }
 
     getValue = data => {
-        console.log(data);
         this.setState({ name: data.name, page: data.page, hits: []});
         const { name, page } = data;
         const response = this.pixabayApi(name, page);
@@ -62,9 +61,6 @@ class App extends Component {
                 toast.error('Пожалуйста введите корректное поисковое слово.');
                 return;
             }
-            console.log(response);
-            console.log(this.state.page);
-            
             this.setState(({ loading, hits, page }) => {
                 return {
                     loading: !loading,
@@ -72,7 +68,6 @@ class App extends Component {
                     page: page + 1,
                 }
                 });
-            console.log(this.state.page);
             return response.data.hits;
         } catch (error) {
             this.setState({ error });
