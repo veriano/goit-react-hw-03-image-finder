@@ -5,7 +5,6 @@ import './App.css';
 import Searchbar from "./Components/Searchbar";
 import Button from "./Components/Button";
 import ImageGallery from "./Components/ImageGallery";
-import ImageGalleryItem from './Components/ImageGalleryItem';
 import Modal from "./Components/Modal";
 import Loader from "./Components/Loader"; 
 const axios = require('axios');
@@ -18,7 +17,22 @@ class App extends Component {
         page: 1,
         showModal: false,
         loading: false,
-        modalImage: ''
+        modalImage: '',
+    }
+
+    componentDidMount() {
+        const parsedHits = JSON.parse(localStorage.getItem("hits"));
+
+        if (parsedHits !== null) {
+            this.setState({ hits: parsedHits });
+        }
+    }
+
+    componentDidUpdate (prevProps, prevState) {
+        if(this.state.hits !== prevState.hits) {
+    
+          localStorage.setItem("hits", JSON.stringify(this.state.hits));
+        }
     }
 
     openModal = largeImageURL => {
@@ -56,6 +70,11 @@ class App extends Component {
 
         try {
             const response = await axios(`${BASE_URL}/?key=${API_KEY}&q=${name}&page=${page}&${searchParams}`);
+            console.log(response);
+            const limitPages = response.data.totalHits / response.data.hits;
+            if (page > limitPages) {
+                this.setState({ hits: [] });
+            }
             if(response.data.hits.length < 1) {
                 this.setState({ loading: false })
                 toast.error('Пожалуйста введите корректное поисковое слово.');
@@ -67,7 +86,8 @@ class App extends Component {
                     hits: [...hits,...response.data.hits],
                     page: page + 1,
                 }
-                });
+            });
+            console.log(this.state.page);
             return response.data.hits;
         } catch (error) {
             this.setState({ error });
@@ -88,9 +108,7 @@ class App extends Component {
                 { loading && <Loader />}
 
                 {hits && (
-                <ImageGallery>
-                    <ImageGalleryItem articles={ hits } onImgClick={ this.openModal }/>
-                </ImageGallery>)}
+                <ImageGallery articles={ hits } onImgClick={ this.openModal }/> )}
 
                 {showModal && (
                 <Modal onClose={ this.toggleModal }>
