@@ -73,25 +73,24 @@ class App extends Component {
             const response = await axios(`${BASE_URL}/?key=${API_KEY}&q=${name}&page=${page}&${searchParams}`);
 
             const totalPages = response.data.totalHits / response.data.hits.length;
-            if (page > totalPages) {
-                this.setState({ loading: false, visibleLoadMore: false });
-                toast.info('Извините, но больше изображений нет.');
-                return;
-            }
            
             if (response.data.hits.length < 1) {
                 this.setState({ loading: false })
                 toast.error('Пожалуйста введите корректное поисковое слово.');
                 return;
             }
-            this.setState(({ loading, hits, page, visibleLoadMore }) => {
+            this.setState(({ loading, hits, page, }) => {
                 return {
                 loading: !loading,
                 hits: [...hits,...response.data.hits],
                 page: page + 1,
-                visibleLoadMore: !visibleLoadMore,
                 }
             });
+            this.setState({ visibleLoadMore: true });
+            if ((this.state.page - 1) >= totalPages) {
+                this.setState({ loading: false, visibleLoadMore: false })
+                toast.error('Извините, но это были последние изображения.');
+            }
             return response.data.hits;
         } catch (error) {
             this.setState({ error });
