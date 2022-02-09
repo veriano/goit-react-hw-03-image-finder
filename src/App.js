@@ -87,7 +87,7 @@ class App extends Component {
                 }
             });
             this.setState({ visibleLoadMore: true });
-            if ((this.state.page - 1) >= totalPages) {
+            if ((page - 1) >= totalPages) {
                 this.setState({ loading: false, visibleLoadMore: false })
                 toast.error('Извините, но это были последние изображения.');
             }
