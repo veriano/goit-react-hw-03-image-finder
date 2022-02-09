@@ -18,6 +18,7 @@ class App extends Component {
         showModal: false,
         loading: false,
         modalImage: '',
+        visibleLoadMore: false
     }
 
     componentDidMount() {
@@ -70,24 +71,27 @@ class App extends Component {
 
         try {
             const response = await axios(`${BASE_URL}/?key=${API_KEY}&q=${name}&page=${page}&${searchParams}`);
-            console.log(response);
-            const limitPages = response.data.totalHits / response.data.hits;
-            if (page > limitPages) {
-                this.setState({ hits: [] });
+
+            const totalPages = response.data.totalHits / response.data.hits.length;
+            if (page > totalPages) {
+                this.setState({ loading: false, visibleLoadMore: false });
+                toast.info('Извините, но больше изображений нет.');
+                return;
             }
-            if(response.data.hits.length < 1) {
+           
+            if (response.data.hits.length < 1) {
                 this.setState({ loading: false })
                 toast.error('Пожалуйста введите корректное поисковое слово.');
                 return;
             }
             this.setState(({ loading, hits, page }) => {
                 return {
-                    loading: !loading,
-                    hits: [...hits,...response.data.hits],
-                    page: page + 1,
+                loading: !loading,
+                hits: [...hits,...response.data.hits],
+                page: page + 1,
+                visibleLoadMore: true,
                 }
             });
-            console.log(this.state.page);
             return response.data.hits;
         } catch (error) {
             this.setState({ error });
@@ -96,7 +100,7 @@ class App extends Component {
     
 
     render() {
-        const { hits, showModal, name, page, loading, modalImage } = this.state;
+        const { hits, showModal, name, page, loading, modalImage, visibleLoadMore } = this.state;
        
 
         return (
@@ -115,7 +119,7 @@ class App extends Component {
                 <img src={modalImage} alt="largeImage" className='image' />
                 </Modal> )}
 
-                { hits.length > 0 && (
+                { visibleLoadMore && (
                 <Button onButtonClick={ () => this.pixabayApi(name, page) } />)}
             </div>
         )
