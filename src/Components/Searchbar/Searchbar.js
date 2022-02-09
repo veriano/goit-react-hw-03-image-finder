@@ -30,7 +30,7 @@ class Searchbar extends Component {
     }
 
     reset() {
-          this.setState({ name: '' })
+        this.setState({ name: '' })
     }
 
     render() {
