@@ -84,12 +84,12 @@ class App extends Component {
                 toast.error('Пожалуйста введите корректное поисковое слово.');
                 return;
             }
-            this.setState(({ loading, hits, page }) => {
+            this.setState(({ loading, hits, page, visibleLoadMore }) => {
                 return {
                 loading: !loading,
                 hits: [...hits,...response.data.hits],
                 page: page + 1,
-                visibleLoadMore: true,
+                visibleLoadMore: !visibleLoadMore,
                 }
             });
             return response.data.hits;
